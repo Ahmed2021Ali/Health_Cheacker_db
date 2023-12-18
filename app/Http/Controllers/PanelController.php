@@ -35,16 +35,15 @@ class PanelController extends Controller
         return redirect()->back()->with('success','Add Panel Successfully');
     }
 
-    public function update(UpdatePanelRequest $request ,$id)
+    public function update(UpdatePanelRequest $request ,$panel)
     {
-       $panel= $this->panel->GetPanel($id);
        $panel->update([...$request->validated()]);
         return redirect()->back()->with('success','Update Panel Successfully');
     }
 
-    public function delete($id)
+    public function delete($panel)
     {
-        $panel= $this->panel->GetPanel($id);
+        $panel->delete();
         return redirect()->back()->with('success','Delete Panel Successfully');
     }
 

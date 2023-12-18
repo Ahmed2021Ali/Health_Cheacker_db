@@ -40,9 +40,9 @@ class Input extends Component
         $this->inputs = $input->GetAllInputs();
     }
 
-    public function remove($id)
+    public function remove($input)
     {
-        \App\Models\Input::where('id', $id)->delete();
+        $input->delete();
         return redirect()->route('input.show');
     }
     public function showTableMethod()

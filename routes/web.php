@@ -48,23 +48,23 @@ Route::middleware('auth')->group(function () {
     Route::controller(\App\Http\Controllers\PanelController::class)->prefix('panels')->as('panels.')->group(function () {
         Route::get("/index", 'index')->name('index');
         Route::post("/store", 'store')->name('store');
-        Route::put("/update/{id}", 'update')->name('update');
+        Route::put("/update/{panel}", 'update')->name('update');
         Route::get("/show/{id}", 'show')->name('show');
-        Route::delete("/delete/{id}", 'delete')->name('delete');
+        Route::delete("/delete/{panel}", 'delete')->name('delete');
     });
 
     Route::controller(\App\Http\Controllers\DepartmentController::class)->prefix('department')->as('department.')->group(function () {
         Route::get("/index", 'index')->name('index');
         Route::post("/Store", 'store')->name('store');
-        Route::put("/update/{id}", 'update')->name('update');
-        Route::DELETE("/delete/{id}", 'delete')->name('delete');
+        Route::put("/update/{department}", 'update')->name('update');
+        Route::DELETE("/delete/{department}", 'delete')->name('delete');
     });
 
     Route::controller(\App\Http\Controllers\OperationController::class)->prefix('operation')->as('operation.')->group(function () {
         Route::get("/index", 'index')->name('index');
         Route::post("/Store", 'store')->name('store');
-        Route::put("/update/{id}", 'update')->name('update');
-        Route::delete('/delete/{id}', 'delete')->name('delete');
+        Route::put("/update/{operation}", 'update')->name('update');
+        Route::delete('/delete/{operation}', 'delete')->name('delete');
     });
 
     Route::controller(RoleController::class)->prefix('role')->as('role.')->group(function () {

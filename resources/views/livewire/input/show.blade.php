@@ -29,7 +29,7 @@
                 <td>{{$input->body}}</td>
                 <td>
                     @can('input.update')
-                        <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#delete{{$input->id}}">Delete</a>
+                        <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#delete{{$input}}">Delete</a>
                     @endcan
                     {{--                    <a class="btn btn-info" href="#" data-toggle="modal" data-target="#edit{{$input->id}}">Edit</a>
                                        --}}

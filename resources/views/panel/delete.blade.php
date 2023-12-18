@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Delete Panel</h5>
             </div>
-            <form action="{{route('panels.delete',$panel->id)}}" method="post" autocomplete="off">
+            <form action="{{route('panels.delete',$panel)}}" method="post" autocomplete="off">
                 @csrf
                 @method('delete')
                 <div class="modal-body">

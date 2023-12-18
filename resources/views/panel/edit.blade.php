@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Edit Panel</h5>
             </div>
-            <form action="{{route('panels.update',$panel->id)}}" method="post" autocomplete="off">
+            <form action="{{route('panels.update',$panel)}}" method="post" autocomplete="off">
                 @csrf
                 @method('put')
                 <div class="modal-body">

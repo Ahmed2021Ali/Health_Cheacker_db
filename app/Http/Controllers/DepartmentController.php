@@ -36,16 +36,14 @@ class DepartmentController extends Controller
         return redirect()->back()->with('success','Add Department Successfully');
     }
 
-    public function update(UpdateDepartmentRequest $request ,$id)
+    public function update(UpdateDepartmentRequest $request ,$department)
     {
-       $department= $this->dapartment->GetDepartment($id);
        $department->update([...$request->validated()]);
         return redirect()->back()->with('success','Update Department Successfully');
     }
 
-    public function delete($id)
+    public function delete($department)
     {
-        $department= $this->dapartment->GetDepartment($id);
         $department->delete();
         return redirect()->back()->with('success','Delete Department Successfully');
     }

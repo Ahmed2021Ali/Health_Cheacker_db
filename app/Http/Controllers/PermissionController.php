@@ -20,18 +20,15 @@ class PermissionController extends Controller
         return redirect()->route('permission.index')->with('success','permission created successfully');
     }
 
-    public function update(UpdatePermissionRequest $request, $id)
+    public function update(UpdatePermissionRequest $request,Permission $permission)
     {
-        $permission = Permission::find($id);
-        $permission->name = $request->validated();
-        $permission->save();
+        $permission->update([$request->validated()]);
         return redirect()->route('permission.index')
             ->with('success','permission updated successfully');
     }
 
-    public function delete($id)
+    public function delete(Permission$permission)
     {
-        $permission = Permission::find($id);
         $permission->delete();
         return redirect()->route('permission.index')->with('success','permission deleted successfully');
     }

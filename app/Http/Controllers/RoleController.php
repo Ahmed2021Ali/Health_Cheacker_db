@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRoleRequest;
+use App\Http\Requests\UpdateRoleRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
@@ -25,36 +27,26 @@ class RoleController extends Controller
         return view('roles.index', compact('roles', 'permissions'));
     }
 
-    public function store(Request $request)
+    public function store(StoreRoleRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:roles,name',
-            'permissions' => 'nullable',
-        ]);
-        $role = Role::create(['name' => $request->input('name')]);
+        $role = Role::create([ $request->validated()]);
         if (isset($request->permissions)) {
             $role->syncPermissions($request->permissions);
         }
         return redirect()->route('role.index')->with('success', 'Role created successfully');
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateRoleRequest $request, Role $role)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'permission' => 'nullable',
-        ]);
-        $role = Role::find($id);
-        $role->name = $request->input('name');
-        $role->save();
+        $role->update([$request->validated()]);
         $role->syncPermissions($request->input('permission'));
         return redirect()->route('role.index')
             ->with('success', 'Role updated successfully');
     }
 
-    public function delete($id)
+    public function delete(Role $role)
     {
-        DB::table("roles")->where('id', $id)->delete();
+        $role->delete();
         return redirect()->route('role.index')->with('success', 'Role deleted successfully');
     }
 

@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
         Route::get("/index", 'index')->name('index');
         Route::post("/store", 'store')->name('store');
         Route::put("/update/{panel}", 'update')->name('update');
-        Route::get("/show/{id}", 'show')->name('show');
+        Route::get("/show/{panel}", 'show')->name('show');
         Route::delete("/delete/{panel}", 'delete')->name('delete');
     });
 
@@ -70,15 +70,15 @@ Route::middleware('auth')->group(function () {
     Route::controller(RoleController::class)->prefix('role')->as('role.')->group(function () {
         Route::get("/index", 'index')->name('index');
         Route::post("/store", 'store')->name('store');
-        Route::put("/update/{id}", 'update')->name('update');
-        Route::delete("/delete/{id}", 'delete')->name('delete');
+        Route::put("/update/{role}", 'update')->name('update');
+        Route::delete("/delete/{role}", 'delete')->name('delete');
     });
 
     Route::controller(\App\Http\Controllers\PermissionController::class)->prefix('permission')->as('permission.')->group(function () {
         Route::get("/index", 'index')->name('index');
         Route::post("/store", 'store')->name('store');
-        Route::put("/update/{id}", 'update')->name('update');
-        Route::delete("/delete/{id}", 'delete')->name('delete');
+        Route::put("/update/{permission}", 'update')->name('update');
+        Route::delete("/delete/{permission}", 'delete')->name('delete');
     });
     Route::get("/input", \App\Livewire\Input\Input::class)->name('input.show');
 

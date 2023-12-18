@@ -1,11 +1,11 @@
-<div class="modal fade" id="delete{{$role->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="delete{{$role}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
                 <h5 class="modal-title" id="exampleModalLabel">Delete permission</h5>
             </div>
-            <form action="{{ route('role.delete', $role->id) }}" method="post" class="d-inline">
+            <form action="{{ route('role.delete', $role) }}" method="post" class="d-inline">
                 @method('delete')
                 @csrf
                 <div class="modal-body">

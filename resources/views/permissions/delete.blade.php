@@ -5,7 +5,7 @@
             <div class="modal-body">
                 <h5 class="modal-title" id="exampleModalLabel">Delete permission</h5>
             </div>
-            <form action="{{ route('permission.delete', $permission->id) }}" method="post" class="d-inline">
+            <form action="{{ route('permission.delete', $permission) }}" method="post" class="d-inline">
                 @method('delete')
                 @csrf
                 <div class="modal-body">

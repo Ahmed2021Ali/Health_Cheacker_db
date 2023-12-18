@@ -40,7 +40,7 @@ class Input extends Component
         $this->inputs = $input->GetAllInputs();
     }
 
-    public function remove($input)
+    public function remove(\App\Models\Input $input)
     {
         $input->delete();
         return redirect()->route('input.show');

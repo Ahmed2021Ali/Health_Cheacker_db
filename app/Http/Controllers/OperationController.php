@@ -38,13 +38,13 @@ class OperationController extends Controller
         return redirect()->back()->with('success','Add Operation Successfully');
     }
 
-    public function update(UpdateOperationRequest $request ,$operation)
+    public function update(UpdateOperationRequest $request ,Operation $operation)
     {
         $operation->update([...$request->validated()]);
         return redirect()->back()->with('success','Update Operation Successfully');
     }
 
-    public function delete($operation)
+    public function delete(Operation $operation)
     {
         $operation->delete();
         return redirect()->back()->with('success','Delete Operation Successfully');

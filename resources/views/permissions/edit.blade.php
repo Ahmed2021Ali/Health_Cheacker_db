@@ -5,7 +5,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Edit Permission</h5>
             </div>
-            <form action="{{ route('permission.update', $permission->id) }}" method="post">
+            <form action="{{ route('permission.update', $permission) }}" method="post">
                 @method('put')
                 @csrf
 

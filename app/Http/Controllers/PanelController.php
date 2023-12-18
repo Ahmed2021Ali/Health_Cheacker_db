@@ -35,21 +35,20 @@ class PanelController extends Controller
         return redirect()->back()->with('success','Add Panel Successfully');
     }
 
-    public function update(UpdatePanelRequest $request ,$panel)
+    public function update(UpdatePanelRequest $request ,Panel $panel)
     {
        $panel->update([...$request->validated()]);
         return redirect()->back()->with('success','Update Panel Successfully');
     }
 
-    public function delete($panel)
+    public function delete(Panel $panel)
     {
         $panel->delete();
         return redirect()->back()->with('success','Delete Panel Successfully');
     }
 
-    public function show($id)
+    public function show(Panel $panel)
     {
-        $panel= $this->panel->GetPanel($id);
         return view('dashboard-adminlte.select_action',[ 'panel' => $panel]);
     }
 

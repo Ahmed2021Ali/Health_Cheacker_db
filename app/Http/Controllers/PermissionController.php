@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePermissionRequest;
+use App\Http\Requests\UpdatePermissionRequest;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 
@@ -12,23 +14,16 @@ class PermissionController extends Controller
         $permissions = Permission::get();
         return view('permissions.index',compact('permissions'));
     }
-
-    public function store(Request $request)
+    public function store(StorePermissionRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:roles,name',
-        ]);
-        Permission::create(['name' => $request->input('name')]);
+        Permission::create([...$request->validated()]);
         return redirect()->route('permission.index')->with('success','permission created successfully');
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdatePermissionRequest $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-        ]);
         $permission = Permission::find($id);
-        $permission->name = $request->input('name');
+        $permission->name = $request->validated();
         $permission->save();
         return redirect()->route('permission.index')
             ->with('success','permission updated successfully');

@@ -13,7 +13,6 @@ class BackupController extends Controller
     public function index()
     {
         $disk = Storage::disk(config('Health_Cheacker_for_db.backup.destination.disks'));
-        //dd($disk->size($f));
         $files = $disk->files('/laravel/');
         $backups = [];
         foreach ($files as $k => $f) {

@@ -28,9 +28,13 @@ class Department extends Model
     {
         return $this->belongsTo(Panel::class);
     }
-    public function GetDepartment()
+    public function GetAllDepartments()
     {
         return Department::all();
+    }
+    public function GetDepartment($id)
+    {
+        return Department::where('id', $id)->first();
     }
 
 }

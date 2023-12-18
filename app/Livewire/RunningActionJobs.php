@@ -33,11 +33,8 @@ class RunningActionJobs extends Component
         $operation->user_id = auth()->user()->id;
         $operation->save();
         // backup of database before running of job -> before changes was been Done
-      //  add_db_backup($operation->ticket->panel);
-        //  dd(\config('backup.backup.source'));
         BackupJob::dispatch($operation->ticket->panel);
         RunningActionJob::dispatch($job->queue);
-
         return redirect()->route('jobs')->with('success', 'Running Job successfully');
     }
 

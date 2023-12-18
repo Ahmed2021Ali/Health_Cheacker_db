@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Input;
 
 use App\Livewire\Forms\InputForm;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
-class StoreInput extends Component
+class Input extends Component
 {
-    public InputForm $form;
     public $inputs;
+    public $showTable=true;
+    public InputForm $form;
 
 
     public function save()
@@ -24,19 +25,33 @@ class StoreInput extends Component
             'callback'=>$this->form->callback??null,
             'body' => $this->form->body??null,
         ]);
-        return redirect()->route('input.show');
+        $this->showTable=true;
     }
-
     #[Computed()]
-    public function GetOperation()
+    public function GetAllOperations()
     {
         $operation = new \App\Models\Operation();
-        return $operation->GetOperation();
+        return $operation->GetAllOperations();
     }
 
+    public function mount()
+    {
+        $input = new \App\Models\Input();
+        $this->inputs = $input->GetAllInputs();
+    }
+
+    public function remove($id)
+    {
+        \App\Models\Input::where('id', $id)->delete();
+        return redirect()->route('input.show');
+    }
+    public function showTableMethod()
+    {
+        $this->showTable=false;
+    }
 
     public function render()
     {
-        return view('livewire.store-input')->layout('dashboard-adminlte.store_input');
+        return view('livewire.input.input')->layout('dashboard-adminlte.show_input');
     }
 }

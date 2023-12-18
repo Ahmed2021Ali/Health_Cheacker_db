@@ -32,7 +32,6 @@ class SelectAction extends Component
 
     public function save()
     {
-      //  dd($this->form);
         $this->validate();
         $ticket= Ticket::create([
             'user_id' => auth()->user()->id,

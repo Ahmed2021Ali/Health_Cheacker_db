@@ -25,9 +25,13 @@ class Operation extends Model
         return $this->belongsTo(Department::class,'department_id');
     }
 
-    public function GetOperation()
+    public function GetAllOperations()
     {
         return Operation::all();
+    }
+    public function GetOperation($id)
+    {
+        return Operation::where('id',$id)->first();
     }
 
     public function input()

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOperationRequest;
+use App\Http\Requests\UpdateOperationRequest;
 use App\Models\Department;
 use App\Models\Operation;
 use Illuminate\Http\Request;
@@ -24,27 +26,28 @@ class OperationController extends Controller
 
     public function index()
     {
-        $departments=$this->dapartment->GetDepartment();
-        $operations=$this->operation->GetOperation();
-        return view('operation.index',compact('operations','departments'));
+        return view('operation.index',[
+            'departments'=>$this->dapartment->GetAllDepartments(),
+            'operations'=>$this->operation->GetAllOperations()
+        ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreOperationRequest $request)
     {
-       Operation::create([...$request->except('_token')]);
+       Operation::create([...$request->validated()]);
         return redirect()->back()->with('success','Add Operation Successfully');
     }
 
-    public function update(Request $request ,$id)
+    public function update(UpdateOperationRequest $request ,$id)
     {
-        $operation = Operation::where('id',$id)->first();
-        $operation->update([...$request->except('_token','_method')]);
+        $operation = $this->dapartment->GetDepartment($id);
+        $operation->update([...$request->validated()]);
         return redirect()->back()->with('success','Update Operation Successfully');
     }
 
     public function delete($id)
     {
-        $operation= Operation::where('id',$id)->first();
+        $operation = $this->dapartment->GetDepartment($id);
         $operation->delete();
         return redirect()->back()->with('success','Delete Operation Successfully');
     }

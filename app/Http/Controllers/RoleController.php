@@ -10,13 +10,13 @@ use Spatie\Permission\Models\Role;
 class RoleController extends Controller
 {
 
-    /*   function __construct()
-        {
-            $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
-            $this->middleware('permission:role-create', ['only' => ['create','store']]);
-            $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-            $this->middleware('permission:role-delete', ['only' => ['destroy']]);
-        }*/
+    function __construct()
+    {
+        $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    }
 
     public function index()
     {
@@ -32,8 +32,7 @@ class RoleController extends Controller
             'permissions' => 'nullable',
         ]);
         $role = Role::create(['name' => $request->input('name')]);
-        if(isset($request->permissions))
-        {
+        if (isset($request->permissions)) {
             $role->syncPermissions($request->permissions);
         }
         return redirect()->route('role.index')->with('success', 'Role created successfully');

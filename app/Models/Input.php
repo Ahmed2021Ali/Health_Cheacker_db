@@ -23,7 +23,7 @@ class Input extends Model
     {
         return $this->belongsTo(Operation::class);
     }
-    public function GetInput()
+    public function GetAllInputs()
     {
         return Input::all();
     }

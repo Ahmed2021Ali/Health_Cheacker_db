@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePanelRequest;
+use App\Http\Requests\UpdatePanelRequest;
 use App\Models\Panel;
 use Illuminate\Http\Request;
 use Spatie\Activitylog\Models\Activity;
@@ -22,32 +24,33 @@ class PanelController extends Controller
 
     public function index()
     {
-        $panels=$this->panel->GetPanel();
-        return view('panel.index',compact('panels'));
+        return view('panel.index',[
+            'panels'=>$this->panel->GetAllPanels(),
+        ]);
     }
 
-    public function store(Request $request)
+    public function store(StorePanelRequest $request)
     {
-         Panel::create([...$request->except('_token')]);
+         Panel::create([...$request->validated()]);
         return redirect()->back()->with('success','Add Panel Successfully');
     }
 
-    public function update(Request $request ,$id)
+    public function update(UpdatePanelRequest $request ,$id)
     {
-       $panel= Panel::where('id',$id)->first();
-       $panel->update([...$request->except('_token','_method')]);
+       $panel= $this->panel->GetPanel($id);
+       $panel->update([...$request->validated()]);
         return redirect()->back()->with('success','Update Panel Successfully');
     }
 
     public function delete($id)
     {
-       $panel=Panel::where('id',$id)->first();
+        $panel= $this->panel->GetPanel($id);
         return redirect()->back()->with('success','Delete Panel Successfully');
     }
 
     public function show($id)
     {
-        $panel= Panel::where('id',$id)->first();
+        $panel= $this->panel->GetPanel($id);
         return view('dashboard-adminlte.select_action',[ 'panel' => $panel]);
     }
 

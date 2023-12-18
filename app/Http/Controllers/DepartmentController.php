@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDepartmentRequest;
+use App\Http\Requests\UpdateDepartmentRequest;
 use App\Models\Department;
 use App\Models\Panel;
 use Illuminate\Http\Request;
@@ -22,29 +24,28 @@ class DepartmentController extends Controller
 
     public function index()
     {
-        $panels=$this->panel->GetPanel();
-        $departments=$this->dapartment->GetDepartment();
-        return view('department.index',compact('departments','panels'));
+        return view('department.index',[
+            'departments' => $this->dapartment->GetAllDepartments(),
+            'panels' => $this->panel->GetAllPanels()
+        ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreDepartmentRequest $request)
     {
-       // dd($request->all());
-        Department::create([...$request->except('_token')]);
+        Department::create([...$request->validated()]);
         return redirect()->back()->with('success','Add Department Successfully');
     }
 
-    public function update(Request $request ,$id)
+    public function update(UpdateDepartmentRequest $request ,$id)
     {
-       // dd($request->all(),$id);
-       $department= Department::where('id',$id)->first();
-       $department->update([...$request->except('_token','_method')]);
+       $department= $this->dapartment->GetDepartment($id);
+       $department->update([...$request->validated()]);
         return redirect()->back()->with('success','Update Department Successfully');
     }
 
     public function delete($id)
     {
-        $department=Department::where('id',$id)->first();
+        $department= $this->dapartment->GetDepartment($id);
         $department->delete();
         return redirect()->back()->with('success','Delete Department Successfully');
     }

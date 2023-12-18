@@ -2,6 +2,6 @@
 @section('title', 'Input')
 @section('content')
     @livewireStyles
-    @livewire('show-input')
+    @livewire('input.input')
     @livewireScripts
 @endsection

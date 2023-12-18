@@ -24,20 +24,20 @@ class Panel extends Model
 
     protected $fillable=['name','url','server','db_name','username','password','port'];
 
-/*    public function __construct()
-    {
-        $this->connection = Helper::getDatabaseName();
-
-    }*/
 
     public function department()
     {
         return $this->hasMany(Department::class);
     }
-    public function GetPanel()
+    public function GetAllPanels()
     {
         return Panel::all();
     }
+    public function GetPanel($id)
+    {
+        return Panel::where('id',$id)->first();
+    }
+
     public static function boot()
     {
         parent::boot();

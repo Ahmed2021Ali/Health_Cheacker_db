@@ -80,10 +80,8 @@ Route::middleware('auth')->group(function () {
         Route::put("/update/{id}", 'update')->name('update');
         Route::delete("/delete/{id}", 'delete')->name('delete');
     });
+    Route::get("/input", \App\Livewire\Input\Input::class)->name('input.show');
 
-    Route::get("/input/show", \App\Livewire\showInput::class)->name('input.show');
-
-    Route::get("/input/add", \App\Livewire\StoreInput::class)->name('input.add');
 
     Route::get("/jobs", \App\Livewire\RunningActionJobs::class)->name('jobs');
 
